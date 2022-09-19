@@ -3,6 +3,8 @@ package moura.pedro.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

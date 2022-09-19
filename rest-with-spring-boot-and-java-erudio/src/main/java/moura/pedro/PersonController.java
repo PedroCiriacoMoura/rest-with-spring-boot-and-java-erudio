@@ -14,52 +14,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import moura.pedro.model.Person;
+import moura.pedro.data.vo.v1.PersonVO;
 import moura.pedro.services.PersonServices;
+
 
 @RestController
 @RequestMapping("/person")
 public class PersonController {
 	
 	@Autowired
-	private PersonServices services;
+	private PersonServices service;
 	
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> findAll() {
-		return services.findAll();
-		
+	public List<PersonVO> findAll() {
+		return service.findAll();
 	}
 	
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById (@PathVariable (value = "id") Long id) throws Exception {
-	
-		return services.findById(id);
-		
+	@GetMapping(value = "/{id}",
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public PersonVO findById(@PathVariable(value = "id") Long id) {
+		return service.findById(id);
 	}
 	
-	@PostMapping(value = "/add", 
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Person create (@RequestBody Person person) {
-		
-		return services.create(person);
-		
+	@PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public PersonVO create(@RequestBody PersonVO person) {
+		return service.create(person);
 	}
 	
-	@PutMapping(value = "/update",
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Person update (@RequestBody Person person) {
-		
-		return services.update(person);
-		
+	@PutMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public PersonVO update(@RequestBody PersonVO person) {
+		return service.update(person);
 	}
+	
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> delete (@PathVariable (value = "id") Long id) throws Exception {
-	
-		services.delete(id);
+	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }
-	
