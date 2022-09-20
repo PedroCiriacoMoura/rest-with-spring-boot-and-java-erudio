@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import moura.pedro.data.vo.v1.PersonVO;
-import moura.pedro.data.vo.v2.PersonVOV2;
 import moura.pedro.services.PersonServices;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/person/v1")
 public class PersonController {
 	
 	@Autowired
 	private PersonServices service;
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PersonVO> findAll() {
 		return service.findAll();
 	}
@@ -37,19 +36,13 @@ public class PersonController {
 		return service.findById(id);
 	}
 	
-	@PostMapping(value = "/add" ,consumes = MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVO create(@RequestBody PersonVO person) {
 		return service.create(person);
 	}
 	
-	@PostMapping(value = "/add/v2", consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
-		return service.createV2(person);
-	}
-	
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+	@PutMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public PersonVO update(@RequestBody PersonVO person) {
 		return service.update(person);
